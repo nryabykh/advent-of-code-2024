@@ -8,14 +8,15 @@ import java.util.List;
 
 public interface Day {
 
-    public default List<String> getLines(String... args) throws IOException {
+    default List<String> getLines(String... args) throws IOException {
         String dayNumber = args[0];
         boolean isTest = args.length >= 2 && args[1].equals("test");
+        boolean isTestFileName = args.length >= 3;
 
-        String inputFile = String.format("day%s%s.txt", dayNumber, isTest ? "_test" : "");
+        String inputFile = isTestFileName ? args[2] : (String.format("day%s%s.txt", dayNumber, isTest ? "_test" : ""));
         return Resources.readLines(ClassLoader.getSystemResource(inputFile), Charsets.UTF_8);
     }
 
-    public void run(List<String> lines);
+    void run(List<String> lines);
 
 }
