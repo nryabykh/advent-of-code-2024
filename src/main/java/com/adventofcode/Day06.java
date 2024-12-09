@@ -1,14 +1,20 @@
 package com.adventofcode;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 enum Direction {
     UP, DOWN, LEFT, RIGHT
 }
 
-record Point(int x, int y) { }
-record PointWithDirection(int x, int y, Direction direction) { }
+record Point(int x, int y) {
+}
+
+record PointWithDirection(int x, int y, Direction direction) {
+}
 
 public class Day06 implements Day {
 
@@ -50,7 +56,7 @@ public class Day06 implements Day {
         for (int i = 0; i < sizeY; i++) {
             for (int j = 0; j < sizeX; j++) {
                 char c = lines.get(i).charAt(j);
-                if ("^><v".indexOf(c)  != -1) {
+                if ("^><v".indexOf(c) != -1) {
                     startPoint = new Point(j, i);
                     startDirection = switch (c) {
                         case '^' -> Direction.UP;
@@ -99,7 +105,8 @@ public class Day06 implements Day {
 
                 blocks.add(newBlock);
                 visitedWithDirection = new HashSet<>();
-                PointWithDirection currentPointWithDirection = new PointWithDirection(startPoint.x(), startPoint.y(), startDirection);
+                PointWithDirection currentPointWithDirection =
+                        new PointWithDirection(startPoint.x(), startPoint.y(), startDirection);
 
                 while (!isOut(currentPointWithDirection)) {
                     if (isCycle(currentPointWithDirection)) {
